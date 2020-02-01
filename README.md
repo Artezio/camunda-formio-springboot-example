@@ -5,11 +5,11 @@
 1. Download the [Dockerfile](https://github.com/Artezio/camunda-formio-springboot-example/blob/master/Dockerfile)
 2. Build the image:
   ```
-  docker build --tag camunda-formio .
+  docker build --tag camunda-formio-example .
   ```
 3. Start the container:
   ```
-  docker run -p 8080:8080 camunda-formio
+  docker run -p 8080:8080 camunda-formio-example
   ```
 4. Open browser and navigate to http://127.0.0.1:8080/index.html
 5. User login is `demo` and password is `demo`
@@ -26,3 +26,4 @@
   * `GET 127.0.0.1:8080/api/ext/task/{id}/form` - load a form for task by task id. The loaded form is cleaned from unused process data
   * `POST 127.0.0.:8080/api/ext/task/{id}/complete` - submit formio form data to complete the task. Data validation and cleanup is performed before saving variables into the process
 5. REST for Camunda Process Engine at `127.0.0.1:8080/rest`
+6. NodeJS for running server-side Formio scripts
