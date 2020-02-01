@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0rbpwj9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+  <bpmn:process id="Process_1hvsl8l" name="Order pizza" isExecutable="true" camunda:candidateStarterUsers="demo">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_15e2try</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_15e2try" sourceRef="StartEvent_1" targetRef="Task_0w3sd6s" />
+    <bpmn:userTask id="Task_0w3sd6s" name="Place order" camunda:formKey="place-order" camunda:assignee="demo" camunda:candidateUsers="demo">
+      <bpmn:incoming>SequenceFlow_15e2try</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1keqz6o</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1keqz6o" sourceRef="Task_0w3sd6s" targetRef="Task_1wz3y9j" />
+    <bpmn:userTask id="Task_1wz3y9j" name="Assign pizza maker" camunda:formKey="assign-pizza-maker" camunda:assignee="demo" camunda:candidateUsers="demo">
+      <bpmn:incoming>SequenceFlow_1keqz6o</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1a3spgs</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1a3spgs" sourceRef="Task_1wz3y9j" targetRef="Task_0yonfxl" />
+    <bpmn:endEvent id="EndEvent_1begqax">
+      <bpmn:incoming>SequenceFlow_1a9yba5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1a9yba5" sourceRef="Task_0yonfxl" targetRef="EndEvent_1begqax" />
+    <bpmn:task id="Task_0yonfxl" name="Cook and deliver the pizza">
+      <bpmn:incoming>SequenceFlow_1a3spgs</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1a9yba5</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1hvsl8l">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="156" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_15e2try_di" bpmnElement="SequenceFlow_15e2try">
+        <di:waypoint x="192" y="121" />
+        <di:waypoint x="228" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0lc23s6_di" bpmnElement="Task_0w3sd6s">
+        <dc:Bounds x="228" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1keqz6o_di" bpmnElement="SequenceFlow_1keqz6o">
+        <di:waypoint x="328" y="121" />
+        <di:waypoint x="388" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0j0z5j2_di" bpmnElement="Task_1wz3y9j">
+        <dc:Bounds x="388" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1a3spgs_di" bpmnElement="SequenceFlow_1a3spgs">
+        <di:waypoint x="488" y="121" />
+        <di:waypoint x="548" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1begqax_di" bpmnElement="EndEvent_1begqax">
+        <dc:Bounds x="694" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1a9yba5_di" bpmnElement="SequenceFlow_1a9yba5">
+        <di:waypoint x="648" y="121" />
+        <di:waypoint x="694" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_16hfzj0_di" bpmnElement="Task_0yonfxl">
+        <dc:Bounds x="548" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

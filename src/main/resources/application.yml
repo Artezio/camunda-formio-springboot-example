@@ -1,0 +1,16 @@
+forms:
+  rest:
+    api:
+      path: /api/ext
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+camunda:
+  bpm:
+    authorization:
+      enabled: true
+    admin-user:
+      id: demo
+      password: demo

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+    <title>Dashboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel='stylesheet' href='css/bootstrap-3.3.7.min.css'>
+    <link rel='stylesheet' href='css/formio.full-3.22.9.min.css'>
+    <script src="js/lib/jquery-3.3.1.min.js" type="application/javascript"></script>
+    <script src='js/lib/formio.full-3.22.9.min.js' type="application/javascript"></script>
+    <script src='js/dashboard.js' type="application/javascript"></script>
+    <style type="text/css">
+        .table-borderless table,
+        .table-borderless tbody > tr > td,
+        .table-borderless tbody > tr > th,
+        .table-borderless tfoot > tr > td,
+        .table-borderless tfoot > tr > th,
+        .table-borderless thead > tr > td,
+        .table-borderless thead > tr > th {
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-default" style="background-color: #d9edf7">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand">
+                <strong>Dashboard</strong>
+            </span>
+        </div>
+    </div>
+</nav>
+<div class="container-flued">
+    <div class="col col-sm-3">
+        <div>
+            <h4>My tasks</h4>
+            <div id="assigned-tasks" class="list-group"></div>
+        </div>
+        <hr/>
+        <div>
+            <h4>Processes available to start</h4>
+            <div id="startable-processes" class="list-group"></div>
+        </div>
+        <hr/>
+    </div>
+    <div id="current-form" class="col-sm-5">
+        <div class="row">
+            <div id="error" class="alert alert-danger" style="display: none;"></div>
+            <div class="col">
+                <h3 class="title" style="margin-top: 0"></h3>
+                <div id="formio"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+    loadProcessesAndTasks();
+</script>
+</html>
