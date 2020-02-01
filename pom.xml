@@ -79,17 +79,17 @@
             <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
             <version>3.2.1</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.camunda.bpm.springboot</groupId>-->
-        <!--<artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>-->
-        <!--<exclusions>-->
-        <!--<exclusion>-->
-        <!--<groupId>org.springframework.boot</groupId>-->
-        <!--<artifactId>spring-boot-starter-logging</artifactId>-->
-        <!--</exclusion>-->
-        <!--</exclusions>-->
-        <!--<version>3.2.1</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>3.2.1</version>
+        </dependency>
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter</artifactId>

@@ -41,8 +41,7 @@ public class RestService {
         String formKey = getTaskFormKey(taskId);
         String deploymentId = formService.getTaskFormData(taskId).getDeploymentId();
         ObjectNode data = (ObjectNode) OBJECT_MAPPER.readTree(taskVariablesJson);
-        String result = formClient.getFormWithData(formKey, deploymentId, data);
-        return result;
+        return formClient.getFormWithData(formKey, deploymentId, data);
     }
 
     @POST
