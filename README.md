@@ -2,7 +2,7 @@
 
 ### Deploying with Docker:
 
-1. Download the Dockerfile
+1. Download the [Dockerfile](https://github.com/Artezio/camunda-formio-springboot-example/blob/master/Dockerfile)
 2. Build the image:
   ```
   docker build --tag camunda-formio .
