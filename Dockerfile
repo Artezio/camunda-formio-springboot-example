@@ -6,12 +6,10 @@ ARG resetcache=0
 RUN apk add --no-cache git
 
 ARG resetcache=1
-#RUN cd / &&\
-#	git clone https://github.com/Artezio/camunda-formio-springboot-example.git &&\
-#	cd /camunda-formio-springboot-example &&\
-#	mvn clean install -Dmaven.test.skip=true
-
-ADD target/formio-springboot-example.jar /camunda-formio-springboot-example/target/formio-springboot-example.jar
+RUN cd / &&\
+	git clone https://github.com/Artezio/camunda-formio-springboot-example.git &&\
+	cd /camunda-formio-springboot-example &&\
+	mvn clean install -Dmaven.test.skip=true
 
 
 # Deploy nodejs+java
