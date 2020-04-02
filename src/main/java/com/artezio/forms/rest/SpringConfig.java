@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import javax.servlet.Filter;
+import javax.servlet.http.HttpServlet;
 
 @EnableProcessApplication
 @ServletComponentScan
@@ -32,11 +33,11 @@ public class SpringConfig {
     }
 
     @Bean
-    public ServletRegistrationBean getServletRegistrationBean() {
+    public ServletRegistrationBean<HttpServlet> getServletRegistrationBean() {
         ResourceConfig resourceConfig = new ResourceConfig()
                 .register(RestService.class)
                 .register(RestApplication.class);
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new ServletContainer(resourceConfig));
+        ServletRegistrationBean<HttpServlet> servletRegistrationBean = new ServletRegistrationBean<>(new ServletContainer(resourceConfig));
         servletRegistrationBean.addUrlMappings(String.format("%s/*", formsApiPath));
         servletRegistrationBean.setName("FormsApi");
         servletRegistrationBean.setLoadOnStartup(0);
@@ -44,8 +45,8 @@ public class SpringConfig {
     }
 
     @Bean
-    public FilterRegistrationBean processEngineAuthenticationFilter() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+    public FilterRegistrationBean<Filter> processEngineAuthenticationFilter() {
+        FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
         registration.setName("camunda-auth");
         registration.setFilter(getProcessEngineAuthenticationFilter());
         registration.addInitParameter("authentication-provider",
@@ -58,4 +59,5 @@ public class SpringConfig {
     public Filter getProcessEngineAuthenticationFilter() {
         return new ProcessEngineAuthenticationFilter();
     }
+
 }

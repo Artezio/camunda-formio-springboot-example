@@ -1,6 +1,8 @@
 package com.artezio.forms.rest;
 
 import com.artezio.forms.FormClient;
+import com.artezio.forms.resources.ClassPathResourceLoader;
+import com.artezio.forms.resources.ResourceLoader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.camunda.bpm.engine.FormService;
@@ -26,7 +28,7 @@ public class RestService {
     private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Autowired
-    public RestService(FormClient formClient, TaskService taskService, FormService formService) {
+    public RestService(TaskService taskService, FormService formService, FormClient formClient) {
         this.formClient = formClient;
         this.taskService = taskService;
         this.formService = formService;
@@ -39,9 +41,9 @@ public class RestService {
     public String getTaskForm(@PathParam("id") String taskId) throws IOException {
         String taskVariablesJson = OBJECT_MAPPER.writeValueAsString(taskService.getVariablesTyped(taskId));
         String formKey = getTaskFormKey(taskId);
-        String deploymentId = formService.getTaskFormData(taskId).getDeploymentId();
         ObjectNode data = (ObjectNode) OBJECT_MAPPER.readTree(taskVariablesJson);
-        return formClient.getFormWithData(formKey, deploymentId, data);
+        ResourceLoader resourceLoader = new ClassPathResourceLoader();
+        return formClient.getFormWithData(formKey, data, resourceLoader);
     }
 
     @POST
@@ -49,10 +51,9 @@ public class RestService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void completeTask(@PathParam("id") String taskId, ObjectNode submittedVariables) throws IOException {
         String formKey = getTaskFormKey(taskId);
-        String deploymentId = formService.getTaskFormData(taskId).getDeploymentId();
-        Collection<String> formVariableNames = formClient.getFormVariableNames(formKey, deploymentId);
+        Collection<String> formVariableNames = formClient.getRootFormFieldNames(formKey);
         String taskVariablesJson = OBJECT_MAPPER.writeValueAsString(taskService.getVariables(taskId, formVariableNames));
-        String cleanData = formClient.dryValidationAndCleanup(formKey, deploymentId, submittedVariables, (ObjectNode) OBJECT_MAPPER.readTree(taskVariablesJson));
+        String cleanData = formClient.dryValidationAndCleanup(formKey, submittedVariables, (ObjectNode) OBJECT_MAPPER.readTree(taskVariablesJson));
         taskService.complete(taskId, OBJECT_MAPPER.readValue(cleanData, Map.class));
     }
 

@@ -35,7 +35,6 @@ function loadProcessesAndTasks() {
     closeCurrentForm();
     loadStartableProcesses();
     loadAssignedTasks();
-    loadAvailableTasks();
 }
 
 function loadNextTaskOrCloseForm(response) {
@@ -138,6 +137,21 @@ function setAssignedTasks(tasks) {
     });
 }
 
+function loadAvailableTasks() {
+    $('#available-tasks').empty();
+    $.ajax({
+        method: 'GET',
+        url: camundaRestApi + '/task/available',
+        dataType: 'json',
+        headers: {},
+        cors: true
+    }).then(
+        tasks => setAvailableTasks(tasks),
+        (xhr) => {
+            showError(xhr.responseJSON);
+        });
+}
+
 function loadAssignedTasks() {
     $('#assigned-tasks').empty();
     $.ajax({
@@ -148,9 +162,27 @@ function loadAssignedTasks() {
         cors: true
     }).then(
         tasks => setAssignedTasks(tasks),
-        (xhr, textStatus) => {
+        (xhr) => {
             showError(xhr.responseJSON);
         });
+}
+
+function setAvailableTasks(tasks) {
+    var taskList = $('#available-tasks');
+    taskList.empty();
+    tasks.forEach(task => {
+        var taskName = task.name || '';
+        var taskId = task.id;
+        taskList.append(
+            $('<div>')
+                .attr('class', 'sidebar__tab-item sidebar__tab-item-text list-group-item')
+                .text(taskName.replace(/^(\D+?)"(\d{7})"$/, fullUserNameReplacer))
+                .click(
+                    function () {
+                        claimTask(taskId);
+                    }
+                ));
+    });
 }
 
 var ProcessStartForms = {
@@ -239,7 +271,7 @@ var ProcessStartForms = {
                 });
             }));
     }
-}
+};
 
 var TaskForms = {
     submit: function (taskId, data) {
